@@ -1,0 +1,20 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">código</th>
+      <th scope="col">descrição produto</th>
+      <th scope="col">preço produto</th>
+      <th scope="col">estoque produto</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each datas}}
+      <tr>
+        <th scope="row">{{ codigo }}</th>
+        <td>{{ descricao }}</td>
+        <td>{{ preco }}</td>
+        <td>{{ estoque }}</td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
