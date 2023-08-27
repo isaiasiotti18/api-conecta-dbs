@@ -1,8 +1,36 @@
 import { Injectable } from '@nestjs/common';
+import { Product } from './Product.model';
+import { InjectModel } from '@nestjs/sequelize';
+import { QueryTypes } from 'sequelize';
+import { ProductDto } from './dto/product.dto';
+import {} from 'mysql2';
 
 @Injectable()
 export class AppService {
-  getHello(): string {
-    return 'Hello World!';
+  constructor(
+    @InjectModel(Product)
+    private productModel: typeof Product,
+  ) {}
+
+  async synchronize(products: ProductDto[]): Promise<any> {
+    for await (const product of products) {
+      await this.productModel.sequelize.query(
+        `
+          INSERT INTO produtos (codigo, descricao, preco, estoque)
+          VALUES (
+            ${Object.values(product)[0]},
+            "${Object.values(product)[1]}", 
+            ${Object.values(product)[2]},
+            ${Object.values(product)[3]});
+        `,
+        {
+          type: QueryTypes.INSERT,
+        },
+      );
+    }
+
+    await this.productModel.sequelize.close();
+
+    return;
   }
 }
