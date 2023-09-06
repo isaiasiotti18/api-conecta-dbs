@@ -1,18 +1,20 @@
-import { Column, Table, Model } from 'sequelize-typescript';
+import { Column, Table, Model, PrimaryKey } from 'sequelize-typescript';
 
 @Table({
-  name: { plural: 'produtos' },
+  freezeTableName: true,
+  tableName: 'produtos',
 })
 export class Product extends Model {
-  @Column
+  @PrimaryKey
+  @Column({ field: 'codigo' })
   code: number;
 
-  @Column
+  @Column({ field: 'descricao' })
   description: string;
 
-  @Column
+  @Column({ field: 'preco' })
   price: number;
 
-  @Column
+  @Column({ field: 'estoque' })
   quantity: number;
 }

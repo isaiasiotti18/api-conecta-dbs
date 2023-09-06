@@ -1,15 +1,19 @@
 import { All, Body, Controller, Get, Post, Render } from '@nestjs/common';
 import { AppService } from './app.service';
 import { ProductDto } from './dto/product.dto';
+import { Product } from './Product.model';
 
 @Controller('dbmainsell')
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Get('/synchronize')
+  @Get('/synchronize-list')
   @Render('synchronize')
-  async synchronize() {
-    return;
+  async synchronize(): Promise<any> {
+    const products = await this.appService.synchronizeList();
+    return {
+      products,
+    };
   }
 
   @Post('/synchronize')

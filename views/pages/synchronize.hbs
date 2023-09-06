@@ -23,12 +23,14 @@
           </tr>
         </thead>
         <tbody>
-          {{#each datas}}
+          {{#each products}}
           <tr>
-            <th scope="row">{{ codigo }}</th>
-            <td>{{ descricao }}</td>
-            <td>{{ preco }}</td>
-            <td>{{ estoque }}</td>
+            <th scope="row">{{ code }}</th>
+            <td>{{ description }}</td>
+            <td>
+              <span>{{ price }}</span>
+            </td>
+            <td>{{ quantity }}</td>
           </tr>
           {{/each}}
         </tbody>
@@ -38,5 +40,11 @@
   </div>
 
 </div>
+
+<script>
+  const price = document.getElementById("price")
+
+  price.to
+</script>
 
 {{> footer}}
