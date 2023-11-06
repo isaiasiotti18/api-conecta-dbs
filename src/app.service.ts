@@ -13,6 +13,18 @@ export class AppService {
   ) {}
 
   async synchronize(products: ProductDto[]): Promise<any> {
+    const exists = await this.productModel.findAll({
+      attributes: {
+        exclude: ['createdAt', 'updatedAt'],
+      },
+    });
+
+    if (exists.length > 0) {
+      await this.productModel.sequelize.query(
+        'DELETE FROM dbmainsell.produtos',
+      );
+    }
+
     for await (const product of products) {
       await this.productModel.sequelize.query(
         `
@@ -29,7 +41,7 @@ export class AppService {
       );
     }
 
-    await this.productModel.sequelize.close();
+    //await this.productModel.sequelize.close();
 
     return;
   }
